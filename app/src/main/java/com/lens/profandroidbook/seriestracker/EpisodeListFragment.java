@@ -28,15 +28,15 @@ public class EpisodeListFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.fragment_episodes_list,container,false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_episodes_list, container, false);
         recyclerView = view.findViewById((R.id.list_episodes));
         return view;
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
-        super.onViewCreated(view,savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         Context context = view.getContext();
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -44,7 +44,7 @@ public class EpisodeListFragment extends Fragment {
     }
 
     public void setEpisodes(List<Episode> episodeList) {
-        episodeList.stream().filter(s -> !episodeList.contains(s)).forEach(s -> addAndNotify(s));
+        episodeList.stream().filter(s -> !episodeList.contains(s)).forEach(this::addAndNotify);
     }
 
     private void addAndNotify(Episode s) {

@@ -48,7 +48,7 @@ public class SeriesListFragment extends Fragment {
     }
 
     public void setSeries(List<Series> seriesList) {
-        seriesList.stream().filter(s -> !seriesArrayList.contains(s)).forEach(s -> addAndNotify(s));
+        seriesList.stream().filter(s -> !seriesArrayList.contains(s)).forEach(this::addAndNotify);
     }
 
     private void addAndNotify(Series s) {
