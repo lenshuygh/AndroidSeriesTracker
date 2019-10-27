@@ -8,6 +8,15 @@ public class Episode {
     private int episode;
     private boolean acquired;
     private LocalDate airDate;
+    private int seriesId;
+
+    public Episode(int id, int season, int episode, boolean acquired, int seriesId) {
+        this.id = id;
+        this.season = season;
+        this.episode = episode;
+        this.acquired = acquired;
+        this.seriesId = seriesId;
+    }
 
     public int getId() {
         return id;
@@ -25,8 +34,16 @@ public class Episode {
         return acquired;
     }
 
+    public LocalDate getAirDate() {
+        return airDate;
+    }
+
+    public int getSeriesId() {
+        return seriesId;
+    }
+
     @Override
     public String toString() {
-        return "E" + episode + "S" + season + " (" + airDate + ") : acquired" + acquired;
+        return "("+ seriesId+") E" + episode + "S" + season + " (" + airDate + ") : acquired" + acquired;
     }
 }

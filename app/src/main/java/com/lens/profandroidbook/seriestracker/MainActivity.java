@@ -40,7 +40,12 @@ public class MainActivity extends AppCompatActivity {
 
         List<Series> seriesListDummyData = new ArrayList<>(0);
         seriesListDummyData.add(new Series(0, "War Of The worlds", LocalDate.of(2019, 10, 11), DayOfWeek.FRIDAY));
+        List<Episode> episodeDummyData = new ArrayList<>(0);
+        episodeDummyData.add(new Episode(0,1,1,true,0));
+        episodeDummyData.add(new Episode(1,1,2,true,0));
         seriesListDummyData.add(new Series(1, "Zomboat", LocalDate.of(2019, 10, 8), DayOfWeek.TUESDAY));
+        episodeDummyData.add(new Episode(2,1,1,true,1));
+        episodeDummyData.add(new Episode(2,1,2,true,1));
         seriesListFragment.setSeries(seriesListDummyData);
     }
 
