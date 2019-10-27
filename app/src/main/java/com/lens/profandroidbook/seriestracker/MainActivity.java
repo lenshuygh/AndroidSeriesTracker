@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -38,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         List<Series> seriesListDummyData = new ArrayList<>(0);
-        seriesListDummyData.add(new Series(0,"War Of The worlds",LocalDate.of(2019,10,11)));
-        seriesListDummyData.add(new Series(1,"Zomboat",LocalDate.of(2019,10,8)));
+        seriesListDummyData.add(new Series(0,"War Of The worlds",LocalDate.of(2019,10,11), DayOfWeek.FRIDAY));
+        seriesListDummyData.add(new Series(1,"Zomboat",LocalDate.of(2019,10,8),DayOfWeek.TUESDAY));
         seriesListFragment.setSeries(seriesListDummyData);
     }
 
