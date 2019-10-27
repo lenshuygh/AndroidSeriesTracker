@@ -12,7 +12,7 @@ public class Series {
     private LocalDate startDate;
     private DayOfWeek releaseDayOfWeek;
 
-    public Series(int id, String title, LocalDate startDate,DayOfWeek releaseDayOfWeek) {
+    public Series(int id, String title, LocalDate startDate, DayOfWeek releaseDayOfWeek) {
         this.id = id;
         this.title = title;
         this.startDate = startDate;
@@ -38,14 +38,14 @@ public class Series {
     @Override
     public String toString() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return title + " (" + dateTimeFormatter.format(startDate) + ", airs "+ releaseDayOfWeek+")";
+        return title + " (" + dateTimeFormatter.format(startDate) + ", airs " + releaseDayOfWeek + ")";
     }
 
     @Override
     public boolean equals(@Nullable Object obj) {
-        if(obj instanceof Series){
-            return (((Series)obj).getTitle().equals(title)) && (((Series)obj).startDate == startDate);
-        }else {
+        if (obj instanceof Series) {
+            return (((Series) obj).getTitle().equals(title)) && (((Series) obj).startDate == startDate);
+        } else {
             return false;
         }
     }

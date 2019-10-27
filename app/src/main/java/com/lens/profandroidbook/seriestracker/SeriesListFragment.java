@@ -33,22 +33,22 @@ public class SeriesListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_series_list,container,false);
+        View view = inflater.inflate(R.layout.fragment_series_list, container, false);
         recyclerView = view.findViewById(R.id.list_series);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view,savedInstanceState);
+        super.onViewCreated(view, savedInstanceState);
 
         Context context = view.getContext();
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(seriesRecyclerViewAdapter);
     }
 
-    public void setSeries(List<Series> seriesList){
-        seriesList.stream().filter(s -> !seriesArrayList.contains(s)).forEach(s-> addAndNotify(s));
+    public void setSeries(List<Series> seriesList) {
+        seriesList.stream().filter(s -> !seriesArrayList.contains(s)).forEach(s -> addAndNotify(s));
     }
 
     private void addAndNotify(Series s) {

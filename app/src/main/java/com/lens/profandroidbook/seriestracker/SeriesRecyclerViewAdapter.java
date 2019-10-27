@@ -20,7 +20,7 @@ public class SeriesRecyclerViewAdapter extends RecyclerView.Adapter<SeriesRecycl
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_series,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_series, parent, false);
         return new ViewHolder(view);
     }
 
@@ -35,7 +35,7 @@ public class SeriesRecyclerViewAdapter extends RecyclerView.Adapter<SeriesRecycl
         return seriesList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public final View parentView;
         public final TextView detailsView;
         public Series series;

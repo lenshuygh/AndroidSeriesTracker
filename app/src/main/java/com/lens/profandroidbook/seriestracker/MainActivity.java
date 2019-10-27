@@ -27,20 +27,20 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
             seriesListFragment = new SeriesListFragment();
-            fragmentTransaction.add(R.id.main_activity_frame,seriesListFragment,TAG_LIST_FRAGMENT);
+            fragmentTransaction.add(R.id.main_activity_frame, seriesListFragment, TAG_LIST_FRAGMENT);
             fragmentTransaction.commitNow();
-        }else{
+        } else {
             seriesListFragment = (SeriesListFragment) fragmentManager.findFragmentByTag(TAG_LIST_FRAGMENT);
 
         }
 
         List<Series> seriesListDummyData = new ArrayList<>(0);
-        seriesListDummyData.add(new Series(0,"War Of The worlds",LocalDate.of(2019,10,11), DayOfWeek.FRIDAY));
-        seriesListDummyData.add(new Series(1,"Zomboat",LocalDate.of(2019,10,8),DayOfWeek.TUESDAY));
+        seriesListDummyData.add(new Series(0, "War Of The worlds", LocalDate.of(2019, 10, 11), DayOfWeek.FRIDAY));
+        seriesListDummyData.add(new Series(1, "Zomboat", LocalDate.of(2019, 10, 8), DayOfWeek.TUESDAY));
         seriesListFragment.setSeries(seriesListDummyData);
     }
 
