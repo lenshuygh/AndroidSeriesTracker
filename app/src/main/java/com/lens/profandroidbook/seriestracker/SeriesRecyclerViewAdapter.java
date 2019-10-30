@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.lens.profandroidbook.seriestracker.databinding.ListItemSeriesBinding;
+
 import java.util.List;
 
 public class SeriesRecyclerViewAdapter extends RecyclerView.Adapter<SeriesRecyclerViewAdapter.ViewHolder> {
@@ -20,14 +22,17 @@ public class SeriesRecyclerViewAdapter extends RecyclerView.Adapter<SeriesRecycl
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_series, parent, false);
-        return new ViewHolder(view);
+        ListItemSeriesBinding binding = ListItemSeriesBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.series = seriesList.get(position);
-        holder.detailsView.setText(seriesList.get(position).toString());
+        Series series = seriesList.get(position);
+
+        holder.binding.setSeries(series);
+        holder.binding.executePendingBindings();
+
     }
 
     @Override
@@ -36,19 +41,12 @@ public class SeriesRecyclerViewAdapter extends RecyclerView.Adapter<SeriesRecycl
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View parentView;
-        public final TextView detailsView;
-        public Series series;
+        public final ListItemSeriesBinding binding;
 
-        public ViewHolder(@NonNull View view) {
-            super(view);
-            parentView = view;
-            detailsView = view.findViewById(R.id.list_item_series_details);
-        }
+        public ViewHolder(ListItemSeriesBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + detailsView.getText() + "'";
         }
     }
 }
