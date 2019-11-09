@@ -1,6 +1,7 @@
 package com.lens.profandroidbook.seriestracker;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,6 +52,9 @@ public class SeriesListFragment extends Fragment {
         Context context = view.getContext();
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(seriesRecyclerViewAdapter);
+
+        seriesRecyclerViewAdapter.setOnAdapterClick(selectedItem -> Log.d(TAG, "onItemClicked: " + selectedItem.getTitle()));
+
     }
 
     public void setSeries(List<Series> seriesList) {
