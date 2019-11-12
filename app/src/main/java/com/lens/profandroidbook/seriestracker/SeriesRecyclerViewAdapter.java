@@ -14,6 +14,7 @@ import java.util.List;
 
 public class SeriesRecyclerViewAdapter extends RecyclerView.Adapter<SeriesRecyclerViewAdapter.ViewHolder> {
     private final List<Series> seriesList;
+    private View.OnClickListener mOnItemClickListener;
 
     public SeriesRecyclerViewAdapter(List<Series> seriesList) {
         this.seriesList = seriesList;
@@ -40,13 +41,22 @@ public class SeriesRecyclerViewAdapter extends RecyclerView.Adapter<SeriesRecycl
         return seriesList.size();
     }
 
+    public void setOnItemClickListener(View.OnClickListener itemClickListener) {
+        mOnItemClickListener = itemClickListener;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final ListItemSeriesBinding binding;
 
         public ViewHolder(ListItemSeriesBinding binding) {
             super(binding.getRoot());
+            binding.getRoot().setTag(this);
+            binding.getRoot().setOnClickListener(mOnItemClickListener);
+
             this.binding = binding;
 
         }
+
+
     }
 }
