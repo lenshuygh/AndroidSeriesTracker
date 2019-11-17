@@ -1,7 +1,9 @@
 package com.lens.profandroidbook.seriestracker;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,8 @@ public class SeriesListFragment extends Fragment {
 
     SeriesViewModel seriesViewModel;
 
+    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+
     public SeriesListFragment() {
 
     }
@@ -46,7 +50,9 @@ public class SeriesListFragment extends Fragment {
 
             Series series = seriesArrayList.get(position);
             Toast.makeText(SeriesListFragment.this.getContext(), series.getTitle(), Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "onClick: BOOYAH");
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("SeriesId",series.getId());
+            editor.apply();
         }
     };
 
