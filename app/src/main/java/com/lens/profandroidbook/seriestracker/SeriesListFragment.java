@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +25,8 @@ public class SeriesListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private SeriesRecyclerViewAdapter seriesRecyclerViewAdapter = new SeriesRecyclerViewAdapter(seriesArrayList);
+
+    SeriesViewModel seriesViewModel;
 
     public SeriesListFragment() {
 
@@ -80,5 +83,22 @@ public class SeriesListFragment extends Fragment {
     private void addAndNotify(Series s) {
         seriesArrayList.add(s);
         seriesRecyclerViewAdapter.notifyItemInserted(seriesArrayList.indexOf(s));
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        //seriesViewModel = ViewModelProviders.of(this.getParentFragment()).get(SeriesViewModel.class);
+        seriesViewModel = ((MainActivity) this.getActivity()).seriesViewModel;
+
+        seriesViewModel.getSeries().observe(getViewLifecycleOwner(), new Observer<List<Series>>() {
+            @Override
+            public void onChanged(List<Series> series) {
+                if(series != null){
+                    setSeries(series);
+                }
+            }
+        });
     }
 }

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SeriesTracker</string>
+    <string name="base_url">http://www.omdbapi.com/?apikey=8ffe4780</string>
+    <string-array name="series_url_array">
+        <item>i=tt10404664</item>
+        <item>i=tt8111088</item>
+        <item>i=tt1190634</item>
+        <item>i=tt7049682</item>
+    </string-array>
 </resources>

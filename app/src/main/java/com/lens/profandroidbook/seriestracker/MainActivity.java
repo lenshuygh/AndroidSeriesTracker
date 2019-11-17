@@ -1,24 +1,18 @@
 package com.lens.profandroidbook.seriestracker;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.os.Bundle;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import androidx.lifecycle.ViewModelProviders;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG_LIST_FRAGMENT = "TAG_LIST_FRAGMENT";
 
     SeriesListFragment seriesListFragment;
+
+    SeriesViewModel seriesViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        List<Series> seriesListDummyData = new ArrayList<>(0);
-        seriesListDummyData.add(new Series(0, "War Of The worlds", LocalDate.of(2019, 10, 11), DayOfWeek.FRIDAY));
-        List<Episode> episodeDummyData = new ArrayList<>(0);
-        episodeDummyData.add(new Episode(0,1,1,true,0));
-        episodeDummyData.add(new Episode(1,1,2,true,0));
-        seriesListDummyData.add(new Series(1, "Zomboat", LocalDate.of(2019, 10, 8), DayOfWeek.TUESDAY));
-        episodeDummyData.add(new Episode(2,1,1,true,1));
-        episodeDummyData.add(new Episode(3,1,2,true,1));
-        episodeDummyData.add(new Episode(4,1,3,false,1));
-        seriesListFragment.setSeries(seriesListDummyData);
+    seriesViewModel = ViewModelProviders.of(this).get(SeriesViewModel.class);
+
     }
 
 }
