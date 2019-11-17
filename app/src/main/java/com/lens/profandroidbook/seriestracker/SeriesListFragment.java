@@ -1,5 +1,6 @@
 package com.lens.profandroidbook.seriestracker;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,7 +33,7 @@ public class SeriesListFragment extends Fragment {
 
     SeriesViewModel seriesViewModel;
 
-    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+    private static final String TAG_EPISODES_FRAGMENT = "TAG_EPISODES_FRAGMENT";
 
     public SeriesListFragment() {
 
@@ -50,9 +53,18 @@ public class SeriesListFragment extends Fragment {
 
             Series series = seriesArrayList.get(position);
             Toast.makeText(SeriesListFragment.this.getContext(), series.getTitle(), Toast.LENGTH_SHORT).show();
+
+            Context context = getContext();
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("SeriesId",series.getId());
             editor.apply();
+
+            FragmentManager fragmentManager = getParentFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.main_activity_frame,new EpisodeListFragment(),TAG_EPISODES_FRAGMENT);
+            fragmentTransaction.commitNow();
         }
     };
 

@@ -26,14 +26,14 @@ public class EpisodeListFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate: ");
+        Log.d(TAG, "onCreate: EpisodeListFragment");
         super.onCreate(savedInstanceState);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: ");
+        Log.d(TAG, "onCreateView: EpisodeListFragment");
         View view = inflater.inflate(R.layout.fragment_episodes_list, container, false);
         recyclerView = view.findViewById((R.id.list_episodes));
         return view;
@@ -41,7 +41,7 @@ public class EpisodeListFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onViewCreated: ");
+        Log.d(TAG, "onViewCreated: EpisodeListFragment");
         super.onViewCreated(view, savedInstanceState);
 
         Context context = view.getContext();
