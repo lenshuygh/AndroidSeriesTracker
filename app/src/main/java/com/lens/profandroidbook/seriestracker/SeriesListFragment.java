@@ -1,6 +1,5 @@
 package com.lens.profandroidbook.seriestracker;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -44,17 +43,10 @@ public class SeriesListFragment extends Fragment {
         public void onClick(View view) {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             int position = viewHolder.getAdapterPosition();
-            // viewHolder.getItemId();
-            // viewHolder.getItemViewType();
-            // viewHolder.itemView;
-
-            /*TestItem thisItem = mTestItemList.get(position);
-            Toast.makeText(MainActivity.this, "You Clicked: " + thisItem.getTitle(), Toast.LENGTH_SHORT).show();*/
 
             Series series = seriesArrayList.get(position);
             Toast.makeText(SeriesListFragment.this.getContext(), series.getTitle(), Toast.LENGTH_SHORT).show();
 
-            //Context context = getContext();
             Context context = getActivity().getApplicationContext();
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
@@ -107,7 +99,6 @@ public class SeriesListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //seriesViewModel = ViewModelProviders.of(this.getParentFragment()).get(SeriesViewModel.class);
         seriesViewModel = ((MainActivity) this.getActivity()).seriesViewModel;
 
         seriesViewModel.getSeries().observe(getViewLifecycleOwner(), new Observer<List<Series>>() {

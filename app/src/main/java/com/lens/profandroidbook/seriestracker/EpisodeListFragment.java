@@ -51,7 +51,6 @@ public class EpisodeListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(episodeRecyclerViewAdapter);
 
-        //Context appContext = getActivity().getParent().getApplicationContext();
         Context appContext = getActivity().getApplicationContext();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(appContext);
 
