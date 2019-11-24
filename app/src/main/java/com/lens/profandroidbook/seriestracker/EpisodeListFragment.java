@@ -58,7 +58,7 @@ public class EpisodeListFragment extends Fragment {
         int seriesId = sharedPreferences.getInt("SeriesId",0);
         Log.i(TAG, "onViewCreated: series id = " + seriesId);
 
-        Toast.makeText(EpisodeListFragment.this.getContext(), seriesId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(EpisodeListFragment.this.getContext(), Integer.toString(seriesId), Toast.LENGTH_SHORT).show();
     }
 
     public void setEpisodes(List<Episode> episodeList) {
