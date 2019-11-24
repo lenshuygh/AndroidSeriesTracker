@@ -3,9 +3,7 @@ package com.lens.profandroidbook.seriestracker;
 import android.app.Application;
 import android.os.AsyncTask;
 import android.util.JsonReader;
-import android.util.JsonToken;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -28,14 +26,11 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
 public class SeriesViewModel extends AndroidViewModel {
-    private int seriesId = 0;
     private MutableLiveData<List<Series>> seriesListData;
 
     public SeriesViewModel(Application application) {
@@ -65,12 +60,15 @@ public class SeriesViewModel extends AndroidViewModel {
                     String[] seriesIdList = getApplication().getResources().getStringArray(R.array.series_url_array);
                     URLConnection urlConnection;
                     for (String seriesId : seriesIdList) {
-                        String seriesFeedUrl = seriesFeedBaseUrl + "&" + seriesId;
+                        String seriesFeedUrl = seriesFeedBaseUrl + seriesId;
                         url = new URL(seriesFeedUrl);
 
                         urlConnection = url.openConnection();
 
                         HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
+
+                        httpURLConnection.setRequestProperty("Authorization", "Bearer " + bearerToken);
+
                         int responseCode = httpURLConnection.getResponseCode();
 
                         if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -103,9 +101,9 @@ public class SeriesViewModel extends AndroidViewModel {
 
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("apikey",apiKey);
+                jsonObject.put("apikey", apiKey);
             } catch (JSONException e) {
-                Log.i(TAG, "getBearerToken: json-creation failed",e);
+                Log.i(TAG, "getBearerToken: json-creation failed", e);
                 e.printStackTrace();
             }
 
@@ -113,7 +111,7 @@ public class SeriesViewModel extends AndroidViewModel {
             httpURLConnection.setRequestProperty("Content-Type", "application/json");
             httpURLConnection.setRequestProperty("Accept", "application/json");
 
-            httpURLConnection.setRequestProperty("Content-length",jsonObject.toString().getBytes().length +"");
+            httpURLConnection.setRequestProperty("Content-length", jsonObject.toString().getBytes().length + "");
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setUseCaches(false);
@@ -128,7 +126,7 @@ public class SeriesViewModel extends AndroidViewModel {
             int status = httpURLConnection.getResponseCode();
             String response = httpURLConnection.getResponseMessage();
 
-            if(status == 200) {
+            if (status == 200) {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
                 StringBuilder sb = new StringBuilder();
                 String line;
@@ -162,26 +160,33 @@ public class SeriesViewModel extends AndroidViewModel {
         try {
             JsonReader jsonReader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
             Series newSeries = null;
+            int id = 0;
             String title = null;
             String startDate = null;
 
 
             //root node
             jsonReader.beginObject();
+            //next node 'Data'
+            jsonReader.nextName();
+            jsonReader.beginObject();
             while (jsonReader.hasNext()) {
                 String name = jsonReader.nextName();
-                if (name.equals("Title")) {
+                if (name.equals("id")) {
+                    id = jsonReader.nextInt();
+                    Log.i(TAG, "parseJsonFromInputStream: id received -> " + id);
+                } else if (name.equals("seriesName")) {
                     title = jsonReader.nextString();
                     Log.i(TAG, "parseJsonFromInputStream: title received -> " + title);
-                } else if (name.equals("Released")) {
+                } else if (name.equals("firstAired")) {
                     startDate = jsonReader.nextString();
                 } else {
                     jsonReader.skipValue();
                 }
             }
-            LocalDate localDate = LocalDate.parse(startDate, DateTimeFormatter.ofPattern("dd MMM yyyy"));
+            LocalDate localDate = LocalDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             DayOfWeek dayOfWeek = localDate.getDayOfWeek();
-            newSeries = new Series(seriesId++, title, localDate, dayOfWeek);
+            newSeries = new Series(id, title, localDate, dayOfWeek);
             jsonReader.endObject();
             Log.i(TAG, "parseJsonFromInputStream: series created -> " + newSeries);
             return newSeries;
