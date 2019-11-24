@@ -60,7 +60,6 @@ public class SeriesViewModel extends AndroidViewModel {
                 try {
                     String apiKey = getApplication().getResources().getString(R.string.api_key);
                     String bearerToken = getBearerToken(apiKey);
-                    Log.i(TAG, "doInBackground: received token = " + bearerToken);
 
                     String seriesFeedBaseUrl = getApplication().getString(R.string.base_url);
                     String[] seriesIdList = getApplication().getResources().getStringArray(R.array.series_url_array);
@@ -105,7 +104,6 @@ public class SeriesViewModel extends AndroidViewModel {
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("apikey",apiKey);
-                Log.i(TAG, "getBearerToken: jsonObject.toString() -> " + jsonObject.toString());
             } catch (JSONException e) {
                 Log.i(TAG, "getBearerToken: json-creation failed",e);
                 e.printStackTrace();
@@ -129,10 +127,6 @@ public class SeriesViewModel extends AndroidViewModel {
 
             int status = httpURLConnection.getResponseCode();
             String response = httpURLConnection.getResponseMessage();
-            Log.i(TAG, "getBearerToken: requestMethod of msg -> " + httpURLConnection.getRequestMethod());
-            Log.i(TAG, "getBearerToken: body of msg ->" + httpURLConnection.getContentType());
-            Log.i(TAG, "getBearerToken: response -> status " + status);
-            Log.i(TAG, "getBearerToken: response -> message " + response);
 
             if(status == 200) {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
@@ -142,16 +136,15 @@ public class SeriesViewModel extends AndroidViewModel {
                     sb.append(line + "\n");
                 }
                 bufferedReader.close();
-                Log.i(TAG, "getBearerToken: response -> content " + sb.toString());
                 JSONObject tokenJsonObject = new JSONObject(String.valueOf(sb));
                 return tokenJsonObject.getString("token");
             }
 
         } catch (MalformedURLException e) {
-            Log.e(TAG, "getBearerToken: ", e);
+            Log.e(TAG, "getBearerToken: MalformedURLException", e);
             e.printStackTrace();
         } catch (IOException e) {
-            Log.e(TAG, "getBearerToken: ", e);
+            Log.e(TAG, "getBearerToken: IOException", e);
             e.printStackTrace();
         } catch (JSONException e) {
             Log.e(TAG, "getBearerToken: JSON Response parse", e);
