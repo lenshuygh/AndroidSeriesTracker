@@ -54,13 +54,13 @@ public class SeriesListFragment extends Fragment {
             Series series = seriesArrayList.get(position);
             Toast.makeText(SeriesListFragment.this.getContext(), series.getTitle(), Toast.LENGTH_SHORT).show();
 
-            Context context = getContext();
+            //Context context = getContext();
+            Context context = getActivity().getApplicationContext();
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("SeriesId",series.getId());
             editor.apply();
-
             FragmentManager fragmentManager = getParentFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.main_activity_frame,new EpisodeListFragment(),TAG_EPISODES_FRAGMENT);

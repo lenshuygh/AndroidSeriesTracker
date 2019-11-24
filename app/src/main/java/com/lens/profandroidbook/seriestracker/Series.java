@@ -38,7 +38,7 @@ public class Series {
     @Override
     public String toString() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return title + " (" + dateTimeFormatter.format(startDate) + ", airs " + releaseDayOfWeek + ")";
+        return "[" + id + "] " + title + " (" + dateTimeFormatter.format(startDate) + ", airs " + releaseDayOfWeek + ")";
     }
 
     @Override

@@ -26,6 +26,7 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 
 public class SeriesViewModel extends AndroidViewModel {
+    private int seriesId = 0;
     private MutableLiveData<List<Series>> seriesListData;
 
     public SeriesViewModel(Application application) {
@@ -93,7 +94,7 @@ public class SeriesViewModel extends AndroidViewModel {
             Series newSeries = null;
             String title = null;
             String startDate = null;
-            int id = 0;
+
 
             //root node
             jsonReader.beginObject();
@@ -110,8 +111,9 @@ public class SeriesViewModel extends AndroidViewModel {
             }
             LocalDate localDate = LocalDate.parse(startDate, DateTimeFormatter.ofPattern("dd MMM yyyy"));
             DayOfWeek dayOfWeek = localDate.getDayOfWeek();
-            newSeries = new Series(id++, title, localDate, dayOfWeek);
+            newSeries = new Series(seriesId++, title, localDate, dayOfWeek);
             jsonReader.endObject();
+            Log.i(TAG, "parseJsonFromInputStream: series created -> " + newSeries);
             return newSeries;
 
         } catch (UnsupportedEncodingException e) {

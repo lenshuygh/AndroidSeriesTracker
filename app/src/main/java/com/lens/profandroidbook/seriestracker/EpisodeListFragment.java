@@ -51,10 +51,13 @@ public class EpisodeListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(episodeRecyclerViewAdapter);
 
-        Context appContext = getActivity().getParent().getApplicationContext();
+        //Context appContext = getActivity().getParent().getApplicationContext();
+        Context appContext = getActivity().getApplicationContext();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(appContext);
 
         int seriesId = sharedPreferences.getInt("SeriesId",0);
+        Log.i(TAG, "onViewCreated: series id = " + seriesId);
+
         Toast.makeText(EpisodeListFragment.this.getContext(), seriesId, Toast.LENGTH_SHORT).show();
     }
 
