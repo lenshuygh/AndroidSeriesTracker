@@ -3,15 +3,22 @@ package com.lens.profandroidbook.seriestracker;
 import android.app.Application;
 import android.os.AsyncTask;
 import android.util.JsonReader;
+import android.util.JsonToken;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -21,7 +28,9 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
@@ -49,6 +58,10 @@ public class SeriesViewModel extends AndroidViewModel {
                 URL url;
 
                 try {
+                    String apiKey = getApplication().getResources().getString(R.string.api_key);
+                    String bearerToken = getBearerToken(apiKey);
+                    Log.i(TAG, "doInBackground: received token = " + bearerToken);
+
                     String seriesFeedBaseUrl = getApplication().getString(R.string.base_url);
                     String[] seriesIdList = getApplication().getResources().getStringArray(R.array.series_url_array);
                     URLConnection urlConnection;
@@ -81,6 +94,70 @@ public class SeriesViewModel extends AndroidViewModel {
                 seriesListData.setValue(series);
             }
         }.execute();
+    }
+
+    private String getBearerToken(String apiKey) {
+        try {
+            URL url = new URL(getApplication().getResources().getString(R.string.token_url));
+            URLConnection urlConnection = url.openConnection();
+            HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
+
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("apikey",apiKey);
+                Log.i(TAG, "getBearerToken: jsonObject.toString() -> " + jsonObject.toString());
+            } catch (JSONException e) {
+                Log.i(TAG, "getBearerToken: json-creation failed",e);
+                e.printStackTrace();
+            }
+
+
+            httpURLConnection.setRequestProperty("Content-Type", "application/json");
+            httpURLConnection.setRequestProperty("Accept", "application/json");
+
+            httpURLConnection.setRequestProperty("Content-length",jsonObject.toString().getBytes().length +"");
+            httpURLConnection.setDoInput(true);
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setUseCaches(false);
+
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            outputStream.write(jsonObject.toString().getBytes("UTF-8"));
+            outputStream.close();
+
+            httpURLConnection.connect();
+
+
+            int status = httpURLConnection.getResponseCode();
+            String response = httpURLConnection.getResponseMessage();
+            Log.i(TAG, "getBearerToken: requestMethod of msg -> " + httpURLConnection.getRequestMethod());
+            Log.i(TAG, "getBearerToken: body of msg ->" + httpURLConnection.getContentType());
+            Log.i(TAG, "getBearerToken: response -> status " + status);
+            Log.i(TAG, "getBearerToken: response -> message " + response);
+
+            if(status == 200) {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                bufferedReader.close();
+                Log.i(TAG, "getBearerToken: response -> content " + sb.toString());
+                JSONObject tokenJsonObject = new JSONObject(String.valueOf(sb));
+                return tokenJsonObject.getString("token");
+            }
+
+        } catch (MalformedURLException e) {
+            Log.e(TAG, "getBearerToken: ", e);
+            e.printStackTrace();
+        } catch (IOException e) {
+            Log.e(TAG, "getBearerToken: ", e);
+            e.printStackTrace();
+        } catch (JSONException e) {
+            Log.e(TAG, "getBearerToken: JSON Response parse", e);
+            e.printStackTrace();
+        }
+        return "";
     }
 
     private Series getSeriesFromInputStream(InputStream inputStream) {
