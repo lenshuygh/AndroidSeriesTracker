@@ -1,11 +1,14 @@
 <resources>
     <string name="app_name">SeriesTracker</string>
-    <string name="base_url">http://www.omdbapi.com/?apikey=8ffe4780</string>
+    <string name="base_url">https://api.thetvdb.com/series/</string>
+    <string name="api_key">4F0430D1-5624-4EE3-9A2C-6AD806497B16</string>
+    <string name="token_url">https://api.thetvdb.com/login</string>
     <string-array name="series_url_array">
-        <item>i=tt10404664</item>
-        <item>i=tt8111088</item>
-        <item>i=tt1190634</item>
-        <item>i=tt7049682</item>
-        <item>i=tt6160506</item>
+        <item>370114</item>
+        <item>361753</item>
+        <item>348204</item>
+        <item>355567</item>
+        <item>360733</item>
+        <item>344995</item>
     </string-array>
 </resources>
