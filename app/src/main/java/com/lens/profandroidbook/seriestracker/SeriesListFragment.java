@@ -55,21 +55,21 @@ public class SeriesListFragment extends Fragment {
             editor.apply();
             FragmentManager fragmentManager = getParentFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.main_activity_frame,new EpisodeListFragment(),TAG_EPISODES_FRAGMENT);
+            fragmentTransaction.replace(R.id.main_activity_frame,new EpisodeListFragment(),TAG_EPISODES_FRAGMENT);
             fragmentTransaction.commitNow();
         }
     };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate: ");
+        Log.i(TAG, "SeriesListFragment -> onCreate: ");
         super.onCreate(savedInstanceState);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: ");
+        Log.i(TAG, "SeriesListFragment -> onCreateView: ");
         View view = inflater.inflate(R.layout.fragment_series_list, container, false);
         recyclerView = view.findViewById(R.id.list_series);
         return view;
@@ -77,7 +77,7 @@ public class SeriesListFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onViewCreated: ");
+        Log.i(TAG, "SeriesListFragment -> onViewCreated: ");
         super.onViewCreated(view, savedInstanceState);
 
         Context context = view.getContext();
@@ -97,6 +97,7 @@ public class SeriesListFragment extends Fragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        Log.i(TAG, "SeriesListFragment -> onActivityCreated: ");
         super.onActivityCreated(savedInstanceState);
 
         seriesViewModel = ((MainActivity) this.getActivity()).seriesViewModel;

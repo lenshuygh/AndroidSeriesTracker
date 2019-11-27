@@ -10,10 +10,11 @@ public class Episode {
     private LocalDate airDate;
     private int seriesId;
 
-    public Episode(int id, int season, int episode, boolean acquired, int seriesId) {
+    public Episode(int id, int season, int episode, LocalDate airDate, boolean acquired, int seriesId) {
         this.id = id;
         this.season = season;
         this.episode = episode;
+        this.airDate = airDate;
         this.acquired = acquired;
         this.seriesId = seriesId;
     }

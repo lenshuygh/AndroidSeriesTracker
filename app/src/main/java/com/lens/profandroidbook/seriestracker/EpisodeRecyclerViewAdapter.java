@@ -1,14 +1,17 @@
 package com.lens.profandroidbook.seriestracker;
 
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.lens.profandroidbook.seriestracker.databinding.ListItemEpisodeBinding;
+
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecyclerViewAdapter.ViewHolder> {
     private final List<Episode> episodeList;
@@ -19,15 +22,19 @@ class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecyclerVie
 
     @NonNull
     @Override
-    public EpisodeRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_series, parent, false);
-        return new EpisodeRecyclerViewAdapter.ViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.i(TAG, "EpisodeRecyclerViewAdapter -> onCreateViewHolder: ");
+        ListItemEpisodeBinding binding = ListItemEpisodeBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+        return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EpisodeRecyclerViewAdapter.ViewHolder holder, int position) {
-        holder.episode = episodeList.get(position);
-        holder.detailsView.setText(episodeList.get(position).toString());
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Log.i(TAG, "EpisodeRecyclerViewAdapter -> onBindViewHolder: ");
+        Episode episode = episodeList.get(position);
+
+        holder.binding.setEpisode(episode);
+        holder.binding.executePendingBindings();
     }
 
     @Override
@@ -37,19 +44,15 @@ class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecyclerVie
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public final View parentView;
-        public final TextView detailsView;
-        public Episode episode;
+        public final ListItemEpisodeBinding binding;
 
-        public ViewHolder(@NonNull View view){
-            super(view);
-            parentView = view;
-            detailsView = view.findViewById(R.id.list_item_episode_details);
+        public ViewHolder(ListItemEpisodeBinding binding){
+            super(binding.getRoot());
+            Log.i(TAG, "EpisodeRecyclerViewAdapter -> ViewHolder: constructor");
+            binding.getRoot().setTag(this);
+
+            this.binding = binding;
         }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + detailsView.getText() + "'";
-        }
     }
 }
