@@ -46,6 +46,7 @@ public class SeriesListFragment extends Fragment {
 
             Series series = seriesArrayList.get(position);
             Toast.makeText(SeriesListFragment.this.getContext(), series.getTitle(), Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "SeriesListFragment -> onClick: series clicked: " + series.getTitle());
 
             Context context = getActivity().getApplicationContext();
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
