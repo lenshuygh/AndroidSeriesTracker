@@ -56,7 +56,7 @@ public class SeriesListFragment extends Fragment {
             editor.apply();
             FragmentManager fragmentManager = getParentFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.main_activity_frame,new EpisodeListFragment(),TAG_EPISODES_FRAGMENT);
+            fragmentTransaction.add(R.id.main_activity_frame,new EpisodeListFragment(),TAG_EPISODES_FRAGMENT);
             fragmentTransaction.commitNow();
         }
     };

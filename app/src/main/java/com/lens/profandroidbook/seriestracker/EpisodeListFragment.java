@@ -47,6 +47,8 @@ public class EpisodeListFragment extends Fragment {
         return view;
     }
 
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Log.i(TAG, "EpisodeListFragment -> onViewCreated");

@@ -5,6 +5,7 @@
     android:id="@+id/list_episodes"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:background="@android:color/white"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     app:layoutManager="LinearLayoutManager"/>

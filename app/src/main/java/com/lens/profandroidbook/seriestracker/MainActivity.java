@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG_SERIES_FRAGMENT = "TAG_SERIES_FRAGMENT";
 
@@ -36,5 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
     seriesViewModel = ViewModelProviders.of(this).get(SeriesViewModel.class);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        getSupportFragmentManager().popBackStack();
+        //super.onBackPressed();
+        //getSupportFragmentManager().findFragmentByTag(TAG_EPISODES_FRAGMENT);
     }
 }
