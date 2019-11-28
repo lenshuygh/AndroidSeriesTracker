@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         seriesViewModel = ViewModelProviders.of(this).get(SeriesViewModel.class);
-
     }
 
     @Override
@@ -56,4 +55,6 @@ public class MainActivity extends AppCompatActivity {
                     .commitNow();
         }
     }
+
+
 }

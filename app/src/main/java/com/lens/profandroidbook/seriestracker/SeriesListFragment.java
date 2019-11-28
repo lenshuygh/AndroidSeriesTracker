@@ -106,6 +106,7 @@ public class SeriesListFragment extends Fragment {
         seriesViewModel.getSeries().observe(getViewLifecycleOwner(), new Observer<List<Series>>() {
             @Override
             public void onChanged(List<Series> series) {
+                Log.i(TAG, "SeriesListFragment -> onChanged !!!! ");
                 if(series != null){
                     setSeries(series);
                 }

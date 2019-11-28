@@ -45,6 +45,6 @@ public class Episode {
 
     @Override
     public String toString() {
-        return "("+ seriesId+") E" + episode + "S" + season + " (" + airDate + ") : acquired" + acquired;
+        return "("+ seriesId+") S" + season + "E" + episode + " (" + airDate + ") : acquired" + acquired;
     }
 }

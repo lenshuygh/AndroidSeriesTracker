@@ -37,11 +37,18 @@ public class SeriesViewModel extends AndroidViewModel {
         super(application);
     }
 
+    public static String bearerToken = "";
+
+    public static String getBearerToken(){
+        return bearerToken;
+    }
+
     public LiveData<List<Series>> getSeries() {
         if (seriesListData == null) {
             seriesListData = new MutableLiveData<>();
             loadSeries();
         }
+        Log.i(TAG, "getSeries: returning live data");
         return seriesListData;
     }
 
@@ -54,7 +61,7 @@ public class SeriesViewModel extends AndroidViewModel {
 
                 try {
                     String apiKey = getApplication().getResources().getString(R.string.api_key);
-                    String bearerToken = getBearerToken(apiKey);
+                    bearerToken = getBearerToken(apiKey);
 
                     String seriesFeedBaseUrl = getApplication().getString(R.string.base_url);
                     String[] seriesIdList = getApplication().getResources().getStringArray(R.array.series_url_array);
