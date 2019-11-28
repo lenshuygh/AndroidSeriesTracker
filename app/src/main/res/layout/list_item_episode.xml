@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:text="@{episode.airDate.toString()}"
+            android:text="@{episode.airDate == null ? `Unknown` : episode.airDate.toString()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@id/list_item_episode_acquired"
             app:layout_constraintTop_toTopOf="parent" />

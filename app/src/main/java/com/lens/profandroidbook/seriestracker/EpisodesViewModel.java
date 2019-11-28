@@ -46,17 +46,17 @@ public class EpisodesViewModel extends AndroidViewModel {
         return sharedPreferences.getInt("SeriesId", 0);
     }
 
-    public LiveData<List<Episode>> getEpisodes(){
-        if(episodesListData == null){
+    public LiveData<List<Episode>> getEpisodes() {
+        if (episodesListData == null) {
             episodesListData = new MutableLiveData<>();
             loadEpisodes();
         }
         return episodesListData;
     }
 
-    private void loadEpisodes(){
-        Log.i(TAG, "EpisodesViewModel -> getSeriesIdFromSharedPReferences: seriesId = " +seriesId);
-        new AsyncTask<Void,Void,List<Episode>>(){
+    private void loadEpisodes() {
+        Log.i(TAG, "EpisodesViewModel -> getSeriesIdFromSharedPReferences: seriesId = " + seriesId);
+        new AsyncTask<Void, Void, List<Episode>>() {
             @Override
             protected List<Episode> doInBackground(Void... voids) {
                 ArrayList<Episode> episodes = new ArrayList<>(0);
@@ -131,8 +131,13 @@ public class EpisodesViewModel extends AndroidViewModel {
                             jsonReader.skipValue();
                     }
                 }
-                LocalDate localDate = LocalDate.parse(airedDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                Episode newEpisode = new Episode(id,season,episode,localDate,false,seriesId);
+                LocalDate localDate;
+                if ("".equals(airedDate)) {
+                    localDate = null;
+                } else {
+                    localDate = LocalDate.parse(airedDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                }
+                Episode newEpisode = new Episode(id, season, episode, localDate, false, seriesId);
                 episodeList.add(newEpisode);
                 jsonReader.endObject();
             }
