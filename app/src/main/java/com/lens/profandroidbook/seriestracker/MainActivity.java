@@ -1,11 +1,14 @@
 package com.lens.profandroidbook.seriestracker;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
+
+import static com.lens.profandroidbook.seriestracker.SeriesListFragment.TAG_EPISODES_FRAGMENT;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,14 +38,22 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-    seriesViewModel = ViewModelProviders.of(this).get(SeriesViewModel.class);
+        seriesViewModel = ViewModelProviders.of(this).get(SeriesViewModel.class);
 
     }
 
     @Override
     public void onBackPressed() {
-        getSupportFragmentManager().popBackStack();
-        //super.onBackPressed();
-        //getSupportFragmentManager().findFragmentByTag(TAG_EPISODES_FRAGMENT);
+        if ((getSupportFragmentManager().getFragments().size() == 1) &&
+                (getSupportFragmentManager().getFragments().get(0) == getSupportFragmentManager().findFragmentByTag(TAG_SERIES_FRAGMENT))) {
+            super.onBackPressed();
+        } else {
+            Log.i(TAG_SERIES_FRAGMENT, "onBackPressed: -> getFragments count = " + getSupportFragmentManager().getFragments().size());
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .remove(
+                            getSupportFragmentManager().findFragmentByTag(TAG_EPISODES_FRAGMENT))
+                    .commitNow();
+        }
     }
 }

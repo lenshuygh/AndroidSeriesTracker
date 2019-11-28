@@ -32,7 +32,7 @@ public class SeriesListFragment extends Fragment {
 
     SeriesViewModel seriesViewModel;
 
-    private static final String TAG_EPISODES_FRAGMENT = "TAG_EPISODES_FRAGMENT";
+    public static final String TAG_EPISODES_FRAGMENT = "TAG_EPISODES_FRAGMENT";
 
     public SeriesListFragment() {
 
