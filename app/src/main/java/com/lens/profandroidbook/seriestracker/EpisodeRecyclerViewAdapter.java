@@ -35,6 +35,7 @@ class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecyclerVie
 
         holder.binding.setEpisode(episode);
         holder.binding.executePendingBindings();
+        holder.itemView.setTag(episode);
     }
 
     @Override
