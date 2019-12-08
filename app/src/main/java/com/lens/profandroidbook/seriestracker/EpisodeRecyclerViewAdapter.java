@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +37,7 @@ class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecyclerVie
 
         holder.binding.setEpisode(episode);
         holder.binding.executePendingBindings();
+        holder.binding.listItemEpisodeAcquiredCheckbox.setEnabled(false);
         holder.itemView.setTag(episode);
     }
 
@@ -57,8 +59,13 @@ class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecyclerVie
 
             binding.getRoot().setOnClickListener(v -> {
                 Log.i(TAG, "ViewHolder: clicked -> " + v.getTag());
+                CheckBox acquiredCheckbox = this.binding.listItemEpisodeAcquiredCheckbox;
+                if(acquiredCheckbox.isChecked()){
+                    acquiredCheckbox.setChecked(false);
+                }else {
+                    acquiredCheckbox.setChecked(true);
+                }
             });
         }
-
     }
 }
