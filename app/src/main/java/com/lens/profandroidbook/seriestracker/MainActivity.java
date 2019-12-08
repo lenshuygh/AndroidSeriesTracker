@@ -2,12 +2,15 @@ package com.lens.profandroidbook.seriestracker;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.CheckBox;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
+import static android.content.ContentValues.TAG;
 import static com.lens.profandroidbook.seriestracker.SeriesListFragment.TAG_EPISODES_FRAGMENT;
 
 
@@ -56,5 +59,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    public void onDownloadedCheckBoxClicked(View view) {
+        boolean isChecked = ((CheckBox) view).isChecked();
+        Log.i(TAG, "MainActivity -> view: " + view);
+        Log.i(TAG, "MainActivity -> onDownloadedCheckBoxClicked: view toString -> : " + view);
+        Log.i(TAG, "MainActivity -> onDownloadedCheckBoxClicked: status " + isChecked);
+    }
 }
