@@ -37,7 +37,7 @@ class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecyclerVie
 
         holder.binding.setEpisode(episode);
         holder.binding.executePendingBindings();
-        holder.binding.listItemEpisodeAcquiredCheckbox.setEnabled(false);
+        holder.binding.listItemEpisodeAcquiredCheckbox.setClickable(false);
         holder.itemView.setTag(episode);
     }
 
