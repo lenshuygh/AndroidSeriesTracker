@@ -2,6 +2,7 @@ package com.lens.profandroidbook.seriestracker;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -53,6 +54,10 @@ class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecyclerVie
             binding.getRoot().setTag(this);
 
             this.binding = binding;
+
+            binding.getRoot().setOnClickListener(v -> {
+                Log.i(TAG, "ViewHolder: clicked -> " + v.getTag());
+            });
         }
 
     }
