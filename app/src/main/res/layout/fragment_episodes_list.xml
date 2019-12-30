@@ -15,8 +15,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="2dp"
         android:gravity="center"
-        android:text="TEST TEKST"
         android:textAppearance="?attr/textAppearanceListItem"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
         app:layout_constraintTop_toTopOf="@+id/list_episodes" />
 
     <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"

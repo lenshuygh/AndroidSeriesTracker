@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,7 +48,7 @@ public class EpisodeListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.i(TAG, "EpisodeListFragment -> onCreateView");
         View view = inflater.inflate(R.layout.fragment_episodes_list, container, false);
-        recyclerView = view.findViewById((R.id.list_episodes));
+        recyclerView = view.findViewById(R.id.list_episodes);
         return view;
     }
 
@@ -67,9 +68,11 @@ public class EpisodeListFragment extends Fragment {
         int seriesId = sharedPreferences.getInt("SeriesId", 0);
         Log.i(TAG, "EpisodeListFragment -> onViewCreated -> from shared prefs => series id = " + seriesId);
 
+        String seriesTitle = sharedPreferences.getString("SeriesTitle","Series Title");
+
         Toast.makeText(EpisodeListFragment.this.getContext(), Integer.toString(seriesId), Toast.LENGTH_SHORT).show();
 
-
+        ((TextView) view.findViewById(R.id.episodes_list_title)).setText(seriesTitle);
     }
 
     public void setEpisodes(List<Episode> episodeList){

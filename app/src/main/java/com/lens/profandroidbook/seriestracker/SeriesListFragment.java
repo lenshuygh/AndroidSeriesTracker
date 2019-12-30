@@ -53,6 +53,7 @@ public class SeriesListFragment extends Fragment {
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("SeriesId",series.getId());
+            editor.putString("SeriesTitle",series.getTitle());
             editor.apply();
             FragmentManager fragmentManager = getParentFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
